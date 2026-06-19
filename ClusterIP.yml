@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-ip
+spec:
+  selector:
+      app: new
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: "TCP"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-02
+  labels: 
+    app: new
+spec:
+  containers:
+    - name: my-con-02
+      image: nginx:latest
+      ports:
+        - containerPort: 80 

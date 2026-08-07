@@ -1,3 +1,18 @@
+# ---------------------------------------------------------
+# Kubernetes ClusterIP Service
+# ---------------------------------------------------------
+# This Service provides internal communication within
+# the Kubernetes cluster.
+#
+# ClusterIP is the default Service type in Kubernetes.
+# It is not directly accessible from the internet.
+#
+# The Service selects the Pod using:
+#     app: new
+#
+# The Service receives traffic on port 80 and forwards
+# it to port 80 of the selected Pod.
+# ---------------------------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,6 +24,7 @@ spec:
     - port: 80
       targetPort: 80
       protocol: "TCP"
+type: ClusterIP
 
 ---
 apiVersion: v1

@@ -1,5 +1,27 @@
+# ---------------------------------------------------------
+# Multi-Container Kubernetes Pod
+# ---------------------------------------------------------
+# This Pod contains two containers:
+# 1. Nginx container
+# 2. MySQL container
+#
+# Both containers run inside the same Kubernetes Pod.
+# ---------------------------------------------------------
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-05
+  name: pod-03
 spec:
+  containers:
+    - name: my-con-03
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+    - name: my-con-03
+      image: mysql:9
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+      ports:
+        - containerPort: 3306
+      

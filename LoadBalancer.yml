@@ -1,3 +1,15 @@
+# ---------------------------------------------------------
+# Kubernetes LoadBalancer Service
+# ---------------------------------------------------------
+# This Service exposes the Nginx Pod outside the Kubernetes
+# cluster using a LoadBalancer.
+#
+# The Service selects the Pod using:
+#     app: balance
+#
+# The Service listens on port 80 and forwards traffic
+# to port 80 of the selected Pod.
+# ---------------------------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
@@ -25,3 +37,24 @@ spec:
         image: nginx:latest
         ports:
           - containerPort: 80
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

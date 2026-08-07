@@ -1,3 +1,15 @@
+# ---------------------------------------------------------
+# Kubernetes NodePort Service
+# ---------------------------------------------------------
+# This Service exposes the Nginx Pod outside the cluster
+# using a port on each Kubernetes Node.
+#
+# The Service selects the Pod using:
+#     app: nodeport
+#
+# Traffic flow:
+#     NodeIP:31111 -> Service:80 -> Pod:80
+# ---------------------------------------------------------
 apiVersion: v1
 kind: Service
 metadata:

@@ -1,9 +1,20 @@
+# ---------------------------------------------------------
+# Kubernetes Deployment
+# ---------------------------------------------------------
+# This Deployment creates and manages multiple Nginx Pods.
+#
+# The Deployment is configured with 3 replicas,
+# which means Kubernetes will maintain 3 Pods.
+#
+# If a Pod fails, the Deployment automatically creates
+# a replacement Pod.
+# ---------------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: nginx
+    app: deploy
 spec:
   replicas: 3
   selector:

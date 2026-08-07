@@ -1,0 +1,33 @@
+# ---------------------------------------------------------
+# Kubernetes ReplicationController
+# ---------------------------------------------------------
+# This ReplicationController creates and maintains
+# a specified number of Pod replicas.
+#
+# In this example:
+# - Replicas: 3
+# - Container: Nginx
+# - Container Port: 80
+#
+# If one Pod fails, the ReplicationController creates
+# a replacement Pod to maintain the desired number.
+# ---------------------------------------------------------
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: my-rc
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      name: my-pod-01
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: my-con-5
+          image: nginx:latest
+          ports:
+            - containerPort: 80

@@ -1,0 +1,67 @@
+# ---------------------------------------------------------
+# Kubernetes StatefulSet
+# ---------------------------------------------------------
+# A StatefulSet is used for stateful applications that need:
+# - Stable Pod names
+# - Stable network identities
+# - Ordered Pod creation and deletion
+#
+# In this example:
+# - StatefulSet name: my-stat
+# - Replicas: 4
+# - Database: MySQL
+# - MySQL port: 3306
+# ---------------------------------------------------------
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-stat
+  labels:
+    tier: statfull-apps
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: stat
+  template:
+    metadata:
+      labels:
+        app: stat
+    spec:
+      containers:
+        - name: pod-06
+          image: mysql:9
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+---
+# ---------------------------------------------------------
+# Kubernetes Service
+# ---------------------------------------------------------
+# This Service provides network access to the MySQL Pods.
+#
+# The Service selects Pods using:
+#     app: stat
+#
+# Traffic flow:
+#
+# NodeIP:NodePort
+#       ↓
+# Service:3306
+#       ↓
+# MySQL Pod:3306
+# ---------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: statfulset-svc
+spec:
+  selector: 
+    app: stat
+  ports:
+    - port: 80
+      targetPort: 3306
+      protocol: "TCP"
+  type: NodePort

@@ -1,0 +1,35 @@
+# ---------------------------------------------------------
+# Kubernetes ReplicaSet
+# ---------------------------------------------------------
+# This ReplicaSet creates and maintains a desired number
+# of identical Pods.
+#
+# In this example:
+# - ReplicaSet name: my-stet
+# - Number of replicas: 3
+# - Container: Nginx
+# - Container port: 80
+#
+# If any Pod fails, the ReplicaSet creates a replacement
+# Pod to maintain 3 running Pods.
+# ---------------------------------------------------------
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-stet
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: my-pod
+      labels:
+       tier: frontend
+    spec:
+      containers:
+        - name: my-pod
+          image: nginx:latest
+          ports:
+            - containerPort: 80

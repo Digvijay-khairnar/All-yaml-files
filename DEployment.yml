@@ -1,13 +1,13 @@
 # ---------------------------------------------------------
 # Kubernetes Deployment
 # ---------------------------------------------------------
-# This Deployment creates and manages multiple Nginx Pods.
+# This Deployment creates and manages 3 Nginx Pods.
 #
-# The Deployment is configured with 3 replicas,
-# which means Kubernetes will maintain 3 Pods.
-#
-# If a Pod fails, the Deployment automatically creates
-# a replacement Pod.
+# Deployment
+#     ↓
+# ReplicaSet
+#     ↓
+# 3 Nginx Pods
 # ---------------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
@@ -30,3 +30,92 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+---
+# ---------------------------------------------------------
+# Kubernetes NodePort Service
+# ---------------------------------------------------------
+# This Service exposes the Nginx Pods outside the cluster
+# using a NodePort.
+#
+# The Service selects Pods with:
+#     app: nginx
+#
+# Traffic flow:
+#
+# NodeIP:NodePort
+#       ↓
+# Service:80
+#       ↓
+# Pod:80
+#       ↓
+# Nginx
+# ---------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: deployment-svc
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: "TCP"
+  type: NodePort
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

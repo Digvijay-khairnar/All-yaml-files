@@ -1,0 +1,64 @@
+# ---------------------------------------------------------
+# Kubernetes DaemonSet
+# ---------------------------------------------------------
+# A DaemonSet ensures that a copy of a Pod runs on
+# every eligible Kubernetes Node.
+#
+# In this example:
+# - DaemonSet name: my-daemonset
+# - Container: Grafana
+# - Grafana port: 3000
+#
+# If you have 2 worker Nodes, the DaemonSet normally
+# creates 2 Grafana Pods (one on each eligible Node).
+# ---------------------------------------------------------
+apiVersion: apps/v1
+kind: DaemonSet
+metadata: 
+  name: my-daemonset
+spec:
+  selector:
+    matchLabels:
+      size: xxl
+  template:
+    metadata:
+      name: my-con
+      labels:
+        size: xxl
+    spec:
+      containers:
+        - name: my-pod 
+          image: grafana/grafana
+          ports:
+            - containerPort: 3000 
+---
+# ---------------------------------------------------------
+# Kubernetes LoadBalancer Service
+# ---------------------------------------------------------
+# This Service exposes Grafana outside the Kubernetes
+# cluster using a LoadBalancer.
+#
+# The Service selects Pods using:
+#     size: xxl
+#
+# Traffic flow:
+#
+# Internet
+#    ↓
+# AWS Load Balancer
+#    ↓
+# Service :3000
+#    ↓
+# Grafana Pod :3000
+# ---------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-svc
+spec:
+  selector:
+    size: xxl
+  ports:
+      - port: 3000
+        targetPort: 3000
+  type: LoadBalancer
